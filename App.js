@@ -18,17 +18,20 @@ import {
 } from 'react-native';
 
 import Header from './components/Header'
+import StartGameScreen from './components/StartGameScreen'
 
 const App= () => {
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <StatusBar/>
-      <ScrollView>
-       <View>
-       <Header title={'Guess a score'} />
-          </View> 
-      </ScrollView>
-    </SafeAreaView>
+    <>
+      <SafeAreaView style={styles.safeArea}>
+        <ScrollView>
+          <View>
+          <Header title={'Guess a score'} />
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+      <StartGameScreen />
+    </>
   );
 };
 
