@@ -16,9 +16,32 @@ import Colors from '../theme/Colors';
 
 const StartGameScreen = props => {
   const [value, setValue] = useState();
+  const [selectedNumber, setSelectedNumber] = useState();
+  const [isConfirmed, setIsConfirmed] = useState();
+
   const inputHandler = value => {
-    setValue(value.replace(/[^0-9]/g, ''));
+    const inputValue = value.replace(/[^0-9]/g, ' ');
+    setValue(inputValue);
   };
+
+  const resetHandler = () => {
+    setValue('');
+  };
+  const confirmHandler = () => {
+    const choosenNumber = parseInt(value);
+    if (choosenNumber > 99 || choosenNumber === NaN || choosenNumber <= 0) {
+      return false;
+    }
+    setSelectedNumber(choosenNumber);
+    setIsConfirmed(true);
+    setValue('');
+  };
+
+  let confirmedMessage;
+  if (isConfirmed) {
+    confirmedMessage = <Text>Chosen number: {selectedNumber}</Text>;
+  }
+
   return (
     <TouchableWithoutFeedback
       onPress={() => {
@@ -31,21 +54,30 @@ const StartGameScreen = props => {
           <Input
             autoCapitalize={false}
             autoComplete={false}
-            keyboardType={'number-pad'}
+            keyboardType={'numeric'}
             maxLength={2}
             style={styles.input}
             value={value}
-            onChangeText={() => {}}
+            onChangeText={inputHandler}
           />
           <View style={styles.buttonContainer}>
             <View style={[styles.button]}>
-              <Button color={Colors.secondary} title="Reset" />
+              <Button
+                onPress={resetHandler}
+                color={Colors.secondary}
+                title="Reset"
+              />
             </View>
             <View style={[styles.button]}>
-              <Button color={Colors.primary} title={'Confirm'} />
+              <Button
+                onPress={confirmHandler}
+                color={Colors.primary}
+                title={'Confirm'}
+              />
             </View>
           </View>
         </Card>
+        {confirmedMessage}
       </View>
     </TouchableWithoutFeedback>
   );
