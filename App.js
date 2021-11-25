@@ -17,16 +17,16 @@ import {
   View,
 } from 'react-native';
 
-import Header from './components/Header'
-import StartGameScreen from './components/StartGameScreen'
+import Header from './components/Header';
+import StartGameScreen from './screens/StartGameScreen';
 
-const App= () => {
+const App = () => {
   return (
     <>
       <SafeAreaView style={styles.safeArea}>
         <ScrollView>
           <View>
-          <Header title={'Guess a score'} />
+            <Header title={'Guess a score'} />
           </View>
         </ScrollView>
       </SafeAreaView>
@@ -36,9 +36,9 @@ const App= () => {
 };
 
 const styles = StyleSheet.create({
-  safeArea:{
-    backgroundColor:'green'
-  }
+  safeArea: {
+    backgroundColor: 'green',
+  },
 });
 
 export default App;
