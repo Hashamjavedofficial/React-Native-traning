@@ -1,21 +1,53 @@
-import React from 'react';
-import {View, StyleSheet, Text, TextInput, Button} from 'react-native';
+import React, {useState} from 'react';
+import {
+  View,
+  StyleSheet,
+  Text,
+  TextInput,
+  Button,
+  Keyboard,
+  TouchableWithoutFeedback,
+} from 'react-native';
 
 import Card from '../components/Card';
+import Input from '../components/Input';
+
+import Colors from '../theme/Colors';
 
 const StartGameScreen = props => {
+  const [value, setValue] = useState();
+  const inputHandler = value => {
+    setValue(value.replace(/[^0-9]/g, ''));
+  };
   return (
-    <View style={styles.screen}>
-      <Text style={styles.title}>Start a new Game!</Text>
-      <Card style={styles.textContainer}>
-        <Text>Select a Number</Text>
-        <TextInput style={styles.input} />
-        <View style={styles.buttonContainer}>
-          <Button title="Reset" />
-          <Button title={'Confirm'} />
-        </View>
-      </Card>
-    </View>
+    <TouchableWithoutFeedback
+      onPress={() => {
+        Keyboard.dismiss();
+      }}>
+      <View style={styles.screen}>
+        <Text style={styles.title}>Start a new Game!</Text>
+        <Card style={styles.textContainer}>
+          <Text>Select a Number</Text>
+          <Input
+            autoCapitalize={false}
+            autoComplete={false}
+            keyboardType={'number-pad'}
+            maxLength={2}
+            style={styles.input}
+            value={value}
+            onChangeText={() => {}}
+          />
+          <View style={styles.buttonContainer}>
+            <View style={[styles.button]}>
+              <Button color={Colors.secondary} title="Reset" />
+            </View>
+            <View style={[styles.button]}>
+              <Button color={Colors.primary} title={'Confirm'} />
+            </View>
+          </View>
+        </Card>
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -39,13 +71,12 @@ const styles = StyleSheet.create({
     maxWidth: '80%',
     alignItems: 'center',
   },
+  button: {
+    width: 100,
+  },
   input: {
-    marginVertical: 10,
-    borderWidth: 1,
-    padding: 10,
-    width: '60%',
-    borderRadius: 18,
-    borderColor: 'grey',
+    width: '40%',
+    textAlign: 'center',
   },
 });
 

@@ -17,6 +17,8 @@ import {
   View,
 } from 'react-native';
 
+import Colors from './theme/Colors';
+
 import Header from './components/Header';
 import StartGameScreen from './screens/StartGameScreen';
 
@@ -37,7 +39,7 @@ const App = () => {
 
 const styles = StyleSheet.create({
   safeArea: {
-    backgroundColor: 'green',
+    backgroundColor: Colors.primary,
   },
 });
 

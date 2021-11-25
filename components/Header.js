@@ -1,12 +1,14 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
+import Colors from '../theme/Colors';
+
 const styles = StyleSheet.create({
   header: {
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'green',
+    backgroundColor: Colors.primary,
     height: 70,
   },
   headerTitle: {
