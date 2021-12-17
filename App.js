@@ -22,16 +22,27 @@ import Colors from './theme/Colors';
 import Header from './components/Header';
 import StartGameScreen from './screens/StartGameScreen';
 import GameScreen from './screens/GameScreen';
+import GameOver from './screens/GameOver';
 
 const App = () => {
   const [userNumber, setUserNumber] = useState();
+  const [guessRound, setGuessRound] = useState(0);
 
   const startGameHandler = selectedNumber => {
     setUserNumber(selectedNumber);
+    setGuessRound(0);
   };
+  const gameOverHandler = numOfRounds => {
+    setGuessRound(numOfRounds);
+  };
+
   let content = <StartGameScreen startGame={startGameHandler} />;
-  if (userNumber) {
-    content = <GameScreen userChoice={userNumber} />;
+  if (userNumber && guessRound <= 0) {
+    content = (
+      <GameScreen userChoice={userNumber} onGameOver={gameOverHandler} />
+    );
+  } else if (guessRound > 0) {
+    content = <GameOver />;
   }
 
   return (
