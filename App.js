@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React, {useState} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -21,8 +21,19 @@ import Colors from './theme/Colors';
 
 import Header from './components/Header';
 import StartGameScreen from './screens/StartGameScreen';
+import GameScreen from './screens/GameScreen';
 
 const App = () => {
+  const [userNumber, setUserNumber] = useState();
+
+  const startGameHandler = selectedNumber => {
+    setUserNumber(selectedNumber);
+  };
+  let content = <StartGameScreen startGame={startGameHandler} />;
+  if (userNumber) {
+    content = <GameScreen userChoice={userNumber} />;
+  }
+
   return (
     <>
       <SafeAreaView style={styles.safeArea}>
@@ -32,7 +43,7 @@ const App = () => {
           </View>
         </ScrollView>
       </SafeAreaView>
-      <StartGameScreen />
+      {content}
     </>
   );
 };
