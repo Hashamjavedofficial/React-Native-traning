@@ -104,6 +104,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     marginVertical: 20,
+    fontFamily: 'OpenSans-Bold',
   },
   buttonContainer: {
     width: '100%',

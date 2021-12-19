@@ -12,7 +12,8 @@ const styles = StyleSheet.create({
     height: 70,
   },
   headerTitle: {
-    fontSize: 20,
+    fontSize: 30,
+    fontFamily: 'ImperialScript-Regular',
   },
 });
 
