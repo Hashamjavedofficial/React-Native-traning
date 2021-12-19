@@ -13,6 +13,7 @@ import {
 import Card from '../components/Card';
 import Input from '../components/Input';
 import NumberContainer from '../components/NumberContainer';
+import BodyText from '../components/BodyText';
 
 import Colors from '../theme/Colors';
 
@@ -62,9 +63,9 @@ const StartGameScreen = props => {
         Keyboard.dismiss();
       }}>
       <View style={styles.screen}>
-        <Text style={styles.title}>Start a new Game!</Text>
+        <BodyText type={'title'}>Start a new Game!</BodyText>
         <Card style={styles.textContainer}>
-          <Text>Select a Number</Text>
+          <BodyText>Select a Number</BodyText>
           <Input
             keyboardType={'numeric'}
             maxLength={2}

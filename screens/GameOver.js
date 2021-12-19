@@ -1,13 +1,26 @@
 import React from 'react';
-import {Text, View, StyleSheet, Button} from 'react-native';
+import {Text, View, StyleSheet, Button, Image} from 'react-native';
 
+import BodyText from '../components/BodyText';
 const GameOver = props => {
   const {rounds, onStart, userNumber} = props;
   return (
     <View style={styles.screen}>
-      <Text>The Game is Over!</Text>
-      <Text>Number of rounds: {rounds}</Text>
-      <Text>User Number: {userNumber}</Text>
+      <BodyText type={'title'}>The Game is Over!</BodyText>
+      <View style={styles.imageContainer}>
+        <Image
+          fadeDuration={2000}
+          // source={require('../assets/success.png')}
+          source={{
+            uri: 'https://avatars.mds.yandex.net/i?id=55e0988fc2c4cf815be2647a8371284f-4797711-images-thumbs&n=13&exp=1',
+          }}
+          resizeMode={'cover'}
+          style={styles.image}
+        />
+      </View>
+
+      <BodyText>Number of rounds: {rounds}</BodyText>
+      <BodyText>User Number: {userNumber}</BodyText>
       <Button title={'Start Game'} onPress={() => onStart(null)} />
     </View>
   );
@@ -18,6 +31,19 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  image: {
+    width: '100%',
+    height: '100%',
+  },
+  imageContainer: {
+    width: 300,
+    height: 300,
+    marginVertical: 20,
+    borderRadius: 150,
+    borderColor: 'black',
+    overflow: 'hidden',
+    borderWidth: 2,
   },
 });
 export default GameOver;
