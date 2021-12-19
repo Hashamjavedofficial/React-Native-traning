@@ -36,9 +36,7 @@ const App = () => {
     setGuessRound(numOfRounds);
   };
 
-  let content = (
-    <GameOver userNumber={1} rounds={1} onStart={startGameHandler} />
-  );
+  let content = <StartGameScreen startGame={startGameHandler} />;
   if (userNumber && guessRound <= 0) {
     content = (
       <GameScreen userChoice={userNumber} onGameOver={gameOverHandler} />

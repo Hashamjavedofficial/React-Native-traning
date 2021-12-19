@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
 import Colors from '../theme/Colors';
+import Fonts from '../theme/Fonts';
 
 const styles = StyleSheet.create({
   header: {
@@ -13,7 +14,7 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     fontSize: 30,
-    fontFamily: 'ImperialScript-Regular',
+    fontFamily: Fonts.openSansBold,
   },
 });
 

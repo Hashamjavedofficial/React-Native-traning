@@ -2,6 +2,8 @@ import React from 'react';
 import {Text, View, StyleSheet, Button, Image} from 'react-native';
 
 import BodyText from '../components/BodyText';
+import MainButton from '../components/MainButton';
+
 const GameOver = props => {
   const {rounds, onStart, userNumber} = props;
   return (
@@ -21,7 +23,7 @@ const GameOver = props => {
 
       <BodyText>Number of rounds: {rounds}</BodyText>
       <BodyText>User Number: {userNumber}</BodyText>
-      <Button title={'Start Game'} onPress={() => onStart(null)} />
+      <MainButton onPress={() => onStart(null)}>Start Game</MainButton>
     </View>
   );
 };
