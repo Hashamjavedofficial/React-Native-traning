@@ -1,9 +1,10 @@
 import React, {useState, useRef, useEffect} from 'react';
-import {View, Text, StyleSheet, Button, Alert} from 'react-native';
+import {View, Text, StyleSheet, Button, Alert, ScrollView} from 'react-native';
 
 import NumberContainer from '../components/NumberContainer';
 import Card from '../components/Card';
 import MainButton from '../components/MainButton';
+import BodyText from '../components/BodyText';
 
 const generateRandomNumber = (min, max, exclude) => {
   min = Math.ceil(min);
@@ -18,10 +19,9 @@ const generateRandomNumber = (min, max, exclude) => {
 
 const GameScreen = props => {
   const {userChoice, onGameOver} = props;
-  const [currentGuess, setCurrentGuess] = useState(
-    generateRandomNumber(1, 100, userChoice),
-  );
-  const [rounds, setRounds] = useState(0);
+  const initialRound = generateRandomNumber(1, 100, userChoice);
+  const [currentGuess, setCurrentGuess] = useState(initialRound);
+  const [rounds, setRounds] = useState([initialRound]);
   let currentLow = useRef(1);
   let currentHigh = useRef(100);
 
@@ -46,12 +46,12 @@ const GameScreen = props => {
       currentGuess,
     );
     setCurrentGuess(nextNumber);
-    setRounds(rounds + 1);
+    setRounds([...rounds, nextNumber]);
   };
 
   useEffect(() => {
     if (currentGuess === userChoice) {
-      onGameOver(rounds);
+      onGameOver(rounds.length);
     }
   }, [currentGuess]);
 
@@ -71,6 +71,16 @@ const GameScreen = props => {
           Greater
         </MainButton>
       </Card>
+      <View style={styles.list}>
+        <ScrollView>
+          {rounds.map((item, index) => (
+            <View key={item + index} style={styles.listItem}>
+              <BodyText>#{index + 1}</BodyText>
+              <BodyText>{item}</BodyText>
+            </View>
+          ))}
+        </ScrollView>
+      </View>
     </View>
   );
 };
@@ -87,6 +97,18 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     width: 300,
     maxWidth: '80%',
+  },
+  listItem: {
+    padding: 15,
+    marginVertical: 10,
+    borderColor: '#ccc',
+    borderWidth: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  list: {
+    flex: 1,
+    width: '80%',
   },
 });
 export default GameScreen;
