@@ -1,5 +1,13 @@
 import React, {useState, useRef, useEffect} from 'react';
-import {View, Text, StyleSheet, Button, Alert, ScrollView} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Button,
+  Alert,
+  ScrollView,
+  Dimensions,
+} from 'react-native';
 
 import NumberContainer from '../components/NumberContainer';
 import Card from '../components/Card';
@@ -93,7 +101,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: 'row',
-    marginTop: 20,
+    marginTop: Dimensions.get('window').height / 30,
     justifyContent: 'space-around',
     width: 300,
     maxWidth: '80%',
@@ -108,7 +116,7 @@ const styles = StyleSheet.create({
   },
   list: {
     flex: 1,
-    width: '80%',
+    width: Dimensions.get('window').width <= 350 ? '80%' : '60%',
   },
 });
 export default GameScreen;
