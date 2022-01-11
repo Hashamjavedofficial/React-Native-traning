@@ -30,6 +30,10 @@ const GameScreen = props => {
   const initialRound = generateRandomNumber(1, 100, userChoice);
   const [currentGuess, setCurrentGuess] = useState(initialRound);
   const [rounds, setRounds] = useState([initialRound]);
+  const [deviceHeight, setDeviceHeight] = useState(
+    Dimensions.get('window').height,
+  );
+
   let currentLow = useRef(1);
   let currentHigh = useRef(100);
 
@@ -62,35 +66,77 @@ const GameScreen = props => {
       onGameOver(rounds.length);
     }
   }, [currentGuess]);
-
-  return (
-    <View style={styles.screen}>
-      <Text>Opponent Guess</Text>
-      <NumberContainer>{currentGuess}</NumberContainer>
-      <Card style={styles.buttonContainer}>
-        <MainButton
-          type={'secondary'}
-          onPress={() => nextGuessHandler('lower')}>
-          Lower
-        </MainButton>
-        <MainButton
-          type={'secondary'}
-          onPress={() => nextGuessHandler('greater')}>
-          Greater
-        </MainButton>
-      </Card>
-      <View style={styles.list}>
-        <ScrollView>
-          {rounds.map((item, index) => (
-            <View key={item + index} style={styles.listItem}>
-              <BodyText>#{index + 1}</BodyText>
-              <BodyText>{item}</BodyText>
-            </View>
-          ))}
-        </ScrollView>
+  useEffect(() => {
+    const updateLayout = () => {
+      setDeviceHeight(Dimensions.get('window').height);
+    };
+    Dimensions.addEventListener('change', updateLayout);
+    return () => {
+      Dimensions.removeEventListener('change', updateLayout);
+    };
+  });
+  let content;
+  if (deviceHeight < 600) {
+    content = (
+      <View style={styles.screen}>
+        <Text>Opponent Guess</Text>
+        <Card style={styles.buttonContainerLandscape}>
+          <MainButton
+            type={'secondary'}
+            onPress={() => nextGuessHandler('lower')}>
+            Lower
+          </MainButton>
+          <NumberContainer>{currentGuess}</NumberContainer>
+          <MainButton
+            type={'secondary'}
+            onPress={() => nextGuessHandler('greater')}>
+            Greater
+          </MainButton>
+        </Card>
+        <View style={styles.list}>
+          <ScrollView>
+            {rounds.map((item, index) => (
+              <View key={item + index} style={styles.listItem}>
+                <BodyText>#{index + 1}</BodyText>
+                <BodyText>{item}</BodyText>
+              </View>
+            ))}
+          </ScrollView>
+        </View>
       </View>
-    </View>
-  );
+    );
+  } else {
+    content = (
+      <View style={styles.screen}>
+        <Text>Opponent Guess</Text>
+        <NumberContainer>{currentGuess}</NumberContainer>
+        <Card style={styles.buttonContainer}>
+          <MainButton
+            type={'secondary'}
+            onPress={() => nextGuessHandler('lower')}>
+            Lower
+          </MainButton>
+          <MainButton
+            type={'secondary'}
+            onPress={() => nextGuessHandler('greater')}>
+            Greater
+          </MainButton>
+        </Card>
+        <View style={styles.list}>
+          <ScrollView>
+            {rounds.map((item, index) => (
+              <View key={item + index} style={styles.listItem}>
+                <BodyText>#{index + 1}</BodyText>
+                <BodyText>{item}</BodyText>
+              </View>
+            ))}
+          </ScrollView>
+        </View>
+      </View>
+    );
+  }
+
+  return <>{content}</>;
 };
 
 const styles = StyleSheet.create({
@@ -102,9 +148,17 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     marginTop: Dimensions.get('window').height / 30,
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     width: 300,
     maxWidth: '80%',
+  },
+  buttonContainerLandscape: {
+    flexDirection: 'row',
+    marginTop: Dimensions.get('window').height / 30,
+    justifyContent: 'space-between',
+    width: '80%',
+    maxWidth: '80%',
+    alignItems: 'center',
   },
   listItem: {
     padding: 15,
